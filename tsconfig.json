@@ -20,7 +20,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"components/Chart.jsx",
-		"components/utils/useD3.jsx"
+		"components/utils/useD3.jsx",
+		"pages/index.jsx"
 	],
 	"exclude": ["node_modules"]
 }
