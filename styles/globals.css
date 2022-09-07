@@ -1,3 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Anek+Latin&family=Exo&family=Permanent+Marker&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+	@apply bg-oxford-blue;
+}
+
+.bar {
+	@apply fill-pacific-blue;
+}
+
+.bar:hover {
+	@apply fill-middle-blue;
+}
+
+.axis--x path {
+	display: none;
+}
