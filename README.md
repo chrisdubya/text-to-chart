@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# text-to-chart
 
-## Getting Started
+demo using d3, react and [openai GPT-3 api](https://beta.openai.com/docs/models/gpt-3)
 
-First, run the development server:
+## usage
 
-```bash
-npm run dev
-# or
-yarn dev
+entering a movie genre, and the form will query openai to generate a completion. the completion is then parsed and fed into a d3 bar-chart to display title, year and metascore of top movies from that genre.
+
+## installation
+
+- clone this repository
+
+- `npm install`
+
+- get an api key from [openai](https://beta.openai.com/overview) and add it to a file called `.env.local` as `OPENAI_API_KEY=...`
+
+OR
+
+- uncomment the dummy and comment out the openai query in `pages/index.jsx`:
+
+```
+// COMMENT OUT this
+const response = await fetch("/api/generate", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        query: `
+            A three-column spreadsheet of top ${genre} movies and the year of release and the metascore:Title,Year of release|Metascore
+        `,
+    }),
+});
+const data = await response.json();
+setResult(data.result);
+
+// UNCOMMENT this
+// const data =
+// 	"\n\nBlade Runner,1982|91\nThe Matrix,1999|83\nThe Terminator,1985|25\nThe Hitchhiker's Guide to the Galaxy,1996|88";
+// setResult(data);
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## running
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- `npm run dev`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## dependencies
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+this project is built using react with [next.js](https://github.com/vercel/next.js/)
