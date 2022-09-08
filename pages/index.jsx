@@ -94,7 +94,7 @@ const Home = () => {
 		window.addEventListener("resize", () => {
 			initChart(chartData);
 		});
-	});
+	}, []);
 
 	const handleResult = useCallback(() => {
 		console.log(result);
@@ -117,9 +117,9 @@ const Home = () => {
 					let year = Number(yearQuery[0].substring(1).slice(0, -1));
 					let metaScore = Number(metaScoreQuery[0].substring(1));
 					chartData.push({ title: title, year: year, metaScore: metaScore });
-					console.log(chartData);
 				}
 			}
+			console.log(chartData);
 			initChart(chartData);
 		};
 
@@ -128,23 +128,28 @@ const Home = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		// const response = await fetch("/api/generate", {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify({
-		// 		query: `
-		// 			A three-column spreadsheet of top ${genre} movies and the year of release and the metascore:Title,Year of release|Metascore
-		// 		`,
-		// 	}),
-		// });
-		// const data = await response.json();
-		// setResult(data.result);
 
-		const data =
-			"\n\nBlade Runner,1982|91\nThe Matrix,1999|83\nThe Terminator,1985|25\nThe Hitchhiker's Guide to the Galaxy,1996|88";
-		setResult(data);
+		// *Comment-out below to use dummy data*
+		const response = await fetch("/api/generate", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				query: `
+					A three-column spreadsheet of top ${genre} movies and the year of release and the metascore:Title,Year of release|Metascore
+				`,
+			}),
+		});
+		const data = await response.json();
+		setResult(data.result);
+
+		// *Uncomment below to use dummy data*
+		// const data =
+		// 	"\n\nBlade Runner,1982|91\nThe Matrix,1999|83\nThe Terminator,1985|25\nThe Hitchhiker's Guide to the Galaxy,1996|88";
+		// setResult(data);
+
+		setGenre("");
 	};
 
 	useEffect(() => {
@@ -158,7 +163,9 @@ const Home = () => {
 			<main className='h-screen container mx-auto flex flex-col md:justify-center md:align-middle'>
 				<svg
 					ref={svgRef}
-					className={`${result ? "visible" : "hidden"} h-[500px] w-full mx-0`}>
+					className={`${
+						result ? "opacity-100 h-[500px]" : "opacity-0 height-0"
+					} w-full mx-0 transition-all duration-300`}>
 					<g className='plot-area' />
 					<g className='x-axis' />
 					<g className='y-axis' />
@@ -168,7 +175,7 @@ const Home = () => {
 				</svg>
 
 				<form
-					className='text-2xl md:flex self-center font-anek text-light-cyan'
+					className='text-2xl md:flex self-center font-anek text-light-cyan animate-fadeIn'
 					onSubmit={handleSubmit}>
 					<div>make me a chart of the best </div>
 					<input

@@ -17,6 +17,15 @@ module.exports = {
 				"middle-blue": "#90E0EF",
 				"light-cyan": "#CAF0F8",
 			},
+			animation: {
+				fadeIn: "fadeIn 1s ease-in-out 1",
+			},
+			keyframes: {
+				fadeIn: {
+					"0%": { opacity: 0 },
+					"100%": { opacity: 1 },
+				},
+			},
 		},
 	},
 	plugins: [],

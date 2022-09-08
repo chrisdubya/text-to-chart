@@ -9,7 +9,7 @@ export default async function (req, res) {
 	const completion = await openai.createCompletion({
 		model: "text-davinci-002",
 		prompt: generatePrompt(req.body.query),
-		temperature: 0.5,
+		temperature: 0.4,
 		max_tokens: 60,
 		top_p: 1.0,
 		frequency_penalty: 0.0,
