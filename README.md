@@ -4,7 +4,7 @@ demo using d3, react and [openai GPT-3 api](https://beta.openai.com/docs/models/
 
 ## usage
 
-entering a movie genre, and the form will query openai to generate a completion. the completion is then parsed and fed into a d3 bar-chart to display title, year and metascore of top movies from that genre.
+enter a movie genre, and the form will query openai to generate a completion. the completion is then parsed and fed into a d3 bar-chart to display title, year and metascore of top movies from that genre.
 
 ## installation
 
@@ -43,6 +43,8 @@ setResult(data.result);
 ## running
 
 - `npm run dev`
+
+- enter a movie genre into the form, i.e. `science fiction`
 
 ## dependencies
 
