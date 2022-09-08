@@ -4,7 +4,9 @@ import * as d3 from "d3";
 const Home = () => {
 	const [genre, setGenre] = useState("");
 	const [result, setResult] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const svgRef = useRef(null);
+
 	const initChart = useCallback((chartData) => {
 		chartData = chartData.sort((a, b) => a.year - b.year);
 
@@ -120,6 +122,7 @@ const Home = () => {
 				}
 			}
 			console.log(chartData);
+			setIsLoading(false);
 			initChart(chartData);
 		};
 
@@ -128,6 +131,8 @@ const Home = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		setIsLoading(true);
 
 		// *Comment-out below to use dummy data*
 		const response = await fetch("/api/generate", {
@@ -161,6 +166,12 @@ const Home = () => {
 	return (
 		<>
 			<main className='h-screen container mx-auto flex flex-col md:justify-center md:align-middle'>
+				{isLoading && (
+					<div className='mt-4 text-2xl md:text-5xl text-light-cyan align-middle self-center animate-fadeIn'>
+						loading...
+					</div>
+				)}
+
 				<svg
 					ref={svgRef}
 					className={`${
@@ -173,7 +184,6 @@ const Home = () => {
 						<text className='font-anek tooltip-text text-white'></text>
 					</g>
 				</svg>
-
 				<form
 					className='text-2xl md:flex self-center font-anek text-light-cyan animate-fadeIn'
 					onSubmit={handleSubmit}>
